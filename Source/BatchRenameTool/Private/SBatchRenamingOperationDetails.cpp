@@ -39,6 +39,7 @@ void SBatchRenamingOperationDetails::Construct(const FArguments& InArgs, const T
     DetailsViewArgs.bAllowSearch = true;
     DetailsViewArgs.bShowOptions = true;
     DetailsViewArgs.bHideSelectionTip = true;
+    DetailsViewArgs.bShowPropertyMatrixButton = false;
 
     FPropertyEditorModule& PropertyEditorModule = FModuleManager::LoadModuleChecked<FPropertyEditorModule>("PropertyEditor");
     DetailsView = PropertyEditorModule.CreateDetailView(DetailsViewArgs);
