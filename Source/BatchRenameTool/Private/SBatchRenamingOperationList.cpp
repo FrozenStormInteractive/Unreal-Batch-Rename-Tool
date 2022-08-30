@@ -78,6 +78,7 @@ void SBatchRenamingOperationList::Construct(const FArguments& InArgs, const TSha
             .ListItemsSource(&Rows)
             .OnGenerateRow(this, &SBatchRenamingOperationList::GenerateRow)
             .SelectionMode(ESelectionMode::Single)
+            .ClearSelectionOnClick(false)
             .OnSelectionChanged(this, &SBatchRenamingOperationList::OnListViewSelectionChanged)
         ]
 	];
