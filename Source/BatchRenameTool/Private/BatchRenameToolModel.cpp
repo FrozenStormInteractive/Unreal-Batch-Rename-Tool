@@ -53,6 +53,32 @@ void FBatchRenameToolModel::RemoveOperation(TObjectPtr<UBatchRenamingOperation> 
     }
 }
 
+void FBatchRenameToolModel::MoveOperationUp(TObjectPtr<UBatchRenamingOperation> Operation)
+{
+    if (IsValid(Operation))
+    {
+        const int32 Index = Operations.Find(Operation);
+        if (Index != INDEX_NONE && Index > 0)
+        {
+            Operations.Swap(Index, Index - 1);
+            OnOperationListModifiedDelegate.Broadcast();
+        }
+    }
+}
+
+void FBatchRenameToolModel::MoveOperationDown(TObjectPtr<UBatchRenamingOperation> Operation)
+{
+    if (IsValid(Operation))
+    {
+        const int32 Index = Operations.Find(Operation);
+        if (Index != INDEX_NONE && Index < Operations.Num() - 1)
+        {
+            Operations.Swap(Index, Index + 1);
+            OnOperationListModifiedDelegate.Broadcast();
+        }
+    }
+}
+
 void FBatchRenameToolModel::SelectOperation(const TObjectPtr<UBatchRenamingOperation>& Operation)
 {
     if ((Operation == nullptr || Operations.Contains(Operation)) && Operation != SelectedOperation)

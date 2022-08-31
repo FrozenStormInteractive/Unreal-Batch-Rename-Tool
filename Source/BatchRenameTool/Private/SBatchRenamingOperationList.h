@@ -62,6 +62,6 @@ private:
 
     TSharedPtr<SListView<TSharedPtr<FOperationListRowData>>> ListView;
     TArray<TSharedPtr<FOperationListRowData>> Rows;
-    TSharedRef<ITableRow> GenerateRow(const TSharedPtr<FOperationListRowData> Item, const TSharedRef<STableViewBase>& OwnerTable);
-    void OnListViewSelectionChanged(TSharedPtr<FOperationListRowData> ItemSelected, ESelectInfo::Type SelectInfo);
+    TSharedRef<ITableRow> GenerateRow(const TSharedPtr<FOperationListRowData> Item, const TSharedRef<STableViewBase>& OwnerTable) const;
+    void OnListViewSelectionChanged(TSharedPtr<FOperationListRowData> ItemSelected, ESelectInfo::Type SelectInfo) const;
 };

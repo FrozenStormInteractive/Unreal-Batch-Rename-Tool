@@ -204,6 +204,46 @@ public:
                 SNew(SButton)
                 .ContentPadding(0)
                 .ButtonStyle(FAppStyle::Get(), "SimpleButton")
+                .IsEnabled(this, &SBatchRenamingOperationListRow::IsMoveUpButtonEnabled)
+                .Visibility(this, &SBatchRenamingOperationListRow::GetButtonVisibility)
+                .OnClicked(this, &SBatchRenamingOperationListRow::OnMoveUpButtonClicked)
+                .ToolTipText(LOCTEXT("MoveUpButton", "Move up."))
+                .HAlign(HAlign_Center)
+                .VAlign(VAlign_Center)
+                .ForegroundColor_Lambda([this]() { return IsSelected() ? FSlateColor::UseForeground() : FSlateColor::UseStyle(); })
+                .Content()
+                [
+                    SNew(SImage)
+                    .Image(FAppStyle::Get().GetBrush("Icons.ChevronUp"))
+                    .ColorAndOpacity(FSlateColor::UseForeground())
+                ]
+            ]
+            +SHorizontalBox::Slot()
+            .AutoWidth()
+            [
+                SNew(SButton)
+                .ContentPadding(0)
+                .ButtonStyle(FAppStyle::Get(), "SimpleButton")
+                .IsEnabled(this, &SBatchRenamingOperationListRow::IsMoveDownButtonEnabled)
+                .Visibility(this, &SBatchRenamingOperationListRow::GetButtonVisibility)
+                .OnClicked(this, &SBatchRenamingOperationListRow::OnMoveDownButtonClicked)
+                .ToolTipText(LOCTEXT("MoveDownButton", "Move down."))
+                .HAlign(HAlign_Center)
+                .VAlign(VAlign_Center)
+                .ForegroundColor_Lambda([this]() { return IsSelected() ? FSlateColor::UseForeground() : FSlateColor::UseStyle(); })
+                .Content()
+                [
+                    SNew(SImage)
+                    .Image(FAppStyle::Get().GetBrush("Icons.ChevronDown"))
+                    .ColorAndOpacity(FSlateColor::UseForeground())
+                ]
+            ]
+            +SHorizontalBox::Slot()
+            .AutoWidth()
+            [
+                SNew(SButton)
+                .ContentPadding(0)
+                .ButtonStyle(FAppStyle::Get(), "SimpleButton")
                 .Visibility(this, &SBatchRenamingOperationListRow::GetButtonVisibility)
                 .OnClicked(this, &SBatchRenamingOperationListRow::OnRemoveOperationButtonClicked)
                 .ToolTipText(LOCTEXT("RemoveOperationButton", "Remove this operation."))
@@ -229,10 +269,48 @@ private:
 
     EVisibility GetButtonVisibility() const
     {
-        return IsHovered() || IsSelected() ? EVisibility::Visible : EVisibility::Hidden ;
+        return IsHovered() || IsSelected() ? EVisibility::Visible : EVisibility::Hidden;
     }
 
-    FReply OnRemoveOperationButtonClicked()
+    bool IsMoveUpButtonEnabled() const
+    {
+        if (Data.IsValid())
+        {
+            const int32 Index = Data->Model->GetOperations().Find(Data->Operation);
+            return Index != INDEX_NONE && Index > 0;
+        }
+        return false;
+    }
+
+    bool IsMoveDownButtonEnabled() const
+    {
+        if (Data.IsValid())
+        {
+            const int32 Index = Data->Model->GetOperations().Find(Data->Operation);
+            return Index != INDEX_NONE && Index < Data->Model->GetOperations().Num() - 1;
+        }
+        return false;
+    }
+
+    FReply OnMoveUpButtonClicked() const
+    {
+        if (Data.IsValid())
+        {
+            Data->Model->MoveOperationUp(Data->Operation);
+        }
+        return FReply::Handled();
+    }
+
+    FReply OnMoveDownButtonClicked() const
+    {
+        if (Data.IsValid())
+        {
+            Data->Model->MoveOperationDown(Data->Operation);
+        }
+        return FReply::Handled();
+    }
+
+    FReply OnRemoveOperationButtonClicked() const
     {
         if (Data.IsValid())
         {
@@ -244,12 +322,12 @@ private:
     TSharedPtr<SBatchRenamingOperationList::FOperationListRowData> Data;
 };
 
-TSharedRef<ITableRow> SBatchRenamingOperationList::GenerateRow(const TSharedPtr<FOperationListRowData> Item, const TSharedRef<STableViewBase>& OwnerTable)
+TSharedRef<ITableRow> SBatchRenamingOperationList::GenerateRow(const TSharedPtr<FOperationListRowData> Item, const TSharedRef<STableViewBase>& OwnerTable) const
 {
     return SNew(SBatchRenamingOperationListRow, Item.ToSharedRef(), OwnerTable);
 }
 
-void SBatchRenamingOperationList::OnListViewSelectionChanged(TSharedPtr<FOperationListRowData> ItemSelected, ESelectInfo::Type SelectInfo)
+void SBatchRenamingOperationList::OnListViewSelectionChanged(TSharedPtr<FOperationListRowData> ItemSelected, ESelectInfo::Type SelectInfo) const
 {
     if (Model.IsValid() && ItemSelected.IsValid() && IsValid(ItemSelected->Operation))
     {
