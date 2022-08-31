@@ -44,8 +44,8 @@ public:
     {
         return Operations;
     }
-    void AddOperation(TObjectPtr<UBatchRenamingOperation> Operation);
-    void AddOperation(TObjectPtr<UBatchRenamingOperationFactory> Factory);
+    void AddOperation(TObjectPtr<UBatchRenamingOperation> Operation, bool bSelect = true);
+    void AddOperation(TObjectPtr<UBatchRenamingOperationFactory> Factory, bool bSelect = true);
     void RemoveOperation(TObjectPtr<UBatchRenamingOperation> Operation);
     void MoveOperationUp(TObjectPtr<UBatchRenamingOperation> Operation);
     void MoveOperationDown(TObjectPtr<UBatchRenamingOperation> Operation);

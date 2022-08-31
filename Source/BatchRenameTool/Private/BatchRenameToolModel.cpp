@@ -30,18 +30,22 @@ void FBatchRenameToolModel::AddReferencedObjects(FReferenceCollector& Collector)
     Collector.AddReferencedObject(SelectedOperation);
 }
 
-void FBatchRenameToolModel::AddOperation(TObjectPtr<UBatchRenamingOperation> Operation)
+void FBatchRenameToolModel::AddOperation(TObjectPtr<UBatchRenamingOperation> Operation, bool bSelect)
 {
     if (IsValid(Operation) && !Operations.Contains(Operation))
     {
         Operations.Add(Operation);
         OnOperationListModifiedDelegate.Broadcast();
+        if (bSelect)
+        {
+            SelectOperation(Operation);
+        }
     }
 }
 
-void FBatchRenameToolModel::AddOperation(TObjectPtr<UBatchRenamingOperationFactory> Factory)
+void FBatchRenameToolModel::AddOperation(TObjectPtr<UBatchRenamingOperationFactory> Factory, bool bSelect)
 {
-    AddOperation(Factory->Create());
+    AddOperation(Factory->Create(), bSelect);
 }
 
 void FBatchRenameToolModel::RemoveOperation(TObjectPtr<UBatchRenamingOperation> Operation)
