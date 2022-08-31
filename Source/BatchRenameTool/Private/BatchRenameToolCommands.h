@@ -41,5 +41,5 @@ public:
     virtual void RegisterCommands() override;
 
 public:
-    TSharedPtr<FUICommandInfo> OpenBatchRenameToolWindow;
+    TSharedPtr<FUICommandInfo> BatchRename;
 };

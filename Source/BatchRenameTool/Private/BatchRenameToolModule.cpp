@@ -39,10 +39,10 @@ void FBatchRenameToolModule::StartupModule()
 
     FBatchRenameToolCommands::Register();
 
-    BulkRenameCommands = MakeShareable(new FUICommandList);
+    Commands = MakeShareable(new FUICommandList);
 
-    BulkRenameCommands->MapAction(
-        FBatchRenameToolCommands::Get().OpenBatchRenameToolWindow,
+    Commands->MapAction(
+        FBatchRenameToolCommands::Get().BatchRename,
         FExecuteAction::CreateRaw(this, &FBatchRenameToolModule::OpenBulkRenameWindow),
         FCanExecuteAction());
 
@@ -92,7 +92,7 @@ TSharedRef<FExtender> FBatchRenameToolModule::OnExtendContentBrowserAssetContext
     SelectedAssets = Assets;
 
     const TSharedPtr<FExtender> MenuExtender = MakeShareable(new FExtender());
-    MenuExtender->AddMenuExtension("AssetContextAdvancedActions", EExtensionHook::After, BulkRenameCommands,
+    MenuExtender->AddMenuExtension("AssetContextAdvancedActions", EExtensionHook::After, Commands,
         FMenuExtensionDelegate::CreateRaw(this, &FBatchRenameToolModule::AddContentBrowserMenuExtension));
     return MenuExtender.ToSharedRef();
 }
@@ -101,7 +101,7 @@ void FBatchRenameToolModule::AddContentBrowserMenuExtension(FMenuBuilder& MenuBu
 {
     if (SelectedAssets.Num() > 1)
     {
-        MenuBuilder.AddMenuEntry(FBatchRenameToolCommands::Get().OpenBatchRenameToolWindow, NAME_None, LOCTEXT("BatchRename", "Batch Rename"), LOCTEXT("BatchRename_Tooltip", "Rename the selected assets."), FSlateIcon(FEditorStyle::GetStyleSetName(), "GenericCommands.Rename"));
+        MenuBuilder.AddMenuEntry(FBatchRenameToolCommands::Get().BatchRename, NAME_None, LOCTEXT("BatchRename", "Batch Rename"), LOCTEXT("BatchRename_Tooltip", "Rename the selected assets."), FSlateIcon(FEditorStyle::GetStyleSetName(), "GenericCommands.Rename"));
     }
 }
 

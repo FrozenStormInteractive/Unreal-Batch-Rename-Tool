@@ -28,7 +28,7 @@
 
 void FBatchRenameToolCommands::RegisterCommands()
 {
-    UI_COMMAND(OpenBatchRenameToolWindow, "Batch Rename", "Rename multiple assets.", EUserInterfaceActionType::Button, FInputChord());
+    UI_COMMAND(BatchRename, "Batch Rename", "Rename multiple assets.", EUserInterfaceActionType::Button, FInputChord(EKeys::F2, EModifierKey::Control));
 }
 
 #undef LOCTEXT_NAMESPACE

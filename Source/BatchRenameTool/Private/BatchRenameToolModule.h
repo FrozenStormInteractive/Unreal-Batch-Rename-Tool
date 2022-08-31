@@ -47,6 +47,6 @@ private:
     void OpenBulkRenameWindow();
 
 private:
-    TSharedPtr<FUICommandList> BulkRenameCommands;
+    TSharedPtr<FUICommandList> Commands;
     TArray<FAssetData> SelectedAssets;
 };
