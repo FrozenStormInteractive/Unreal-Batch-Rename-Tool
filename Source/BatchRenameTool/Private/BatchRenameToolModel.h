@@ -46,6 +46,7 @@ public:
     }
     void AddOperation(TObjectPtr<UBatchRenamingOperation> Operation);
     void AddOperation(TObjectPtr<UBatchRenamingOperationFactory> Factory);
+    void RemoveOperation(TObjectPtr<UBatchRenamingOperation> Operation);
 
     DECLARE_MULTICAST_DELEGATE(FOnSelectionChangedDelegate);
     FOnSelectionChangedDelegate& OnSelectionChanged()

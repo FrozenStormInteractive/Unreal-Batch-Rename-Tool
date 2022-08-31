@@ -165,7 +165,7 @@ void SBatchRenamingOperationList::RefreshList()
 
     for (const TObjectPtr<UBatchRenamingOperation>& Op : Model->GetOperations())
     {
-        Rows.Add(MakeShared<FOperationListRowData>(Op));
+        Rows.Add(MakeShared<FOperationListRowData>(Model, Op));
     }
     ListView->RebuildList();
 }
@@ -190,19 +190,57 @@ public:
         Data = InLine;
         ChildSlot
         [
-            SNew(STextBlock)
-            .Margin(FMargin(6.0f, 2.5f))
-            .Text(this, &SBatchRenamingOperationListRow::GetDisplayText)
+            SNew(SHorizontalBox)
+            +SHorizontalBox::Slot()
+            .FillWidth(1.0f)
+            [
+                SNew(STextBlock)
+                .Margin(FMargin(6.0f, 2.5f))
+                .Text(this, &SBatchRenamingOperationListRow::GetDisplayText)
+            ]
+            +SHorizontalBox::Slot()
+            .AutoWidth()
+            [
+                SNew(SButton)
+                .ContentPadding(0)
+                .ButtonStyle(FAppStyle::Get(), "SimpleButton")
+                .Visibility(this, &SBatchRenamingOperationListRow::GetButtonVisibility)
+                .OnClicked(this, &SBatchRenamingOperationListRow::OnRemoveOperationButtonClicked)
+                .ToolTipText(LOCTEXT("RemoveOperationButton", "Remove this operation."))
+                .HAlign(HAlign_Center)
+                .VAlign(VAlign_Center)
+                .ForegroundColor_Lambda([this]() { return IsSelected() ? FSlateColor::UseForeground() : FSlateColor::UseStyle(); })
+                .Content()
+                [
+                    SNew(SImage)
+                    .Image(FAppStyle::Get().GetBrush("Icons.X"))
+                    .ColorAndOpacity(FSlateColor::UseForeground())
+                ]
+            ]
         ];
     }
     END_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
+private:
     FText GetDisplayText() const
     {
         return Data->Operation->GetDisplayName();
     }
 
-private:
+    EVisibility GetButtonVisibility() const
+    {
+        return IsHovered() || IsSelected() ? EVisibility::Visible : EVisibility::Hidden ;
+    }
+
+    FReply OnRemoveOperationButtonClicked()
+    {
+        if (Data.IsValid())
+        {
+            Data->Model->RemoveOperation(Data->Operation);
+        }
+        return FReply::Handled();
+    }
+
     TSharedPtr<SBatchRenamingOperationList::FOperationListRowData> Data;
 };
 

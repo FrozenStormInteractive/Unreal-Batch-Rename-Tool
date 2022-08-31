@@ -36,13 +36,15 @@ class BATCHRENAMETOOL_API SBatchRenamingOperationList : public SCompoundWidget
 public:
     struct FOperationListRowData : public FGCObject
     {
-        FOperationListRowData(const TObjectPtr<UBatchRenamingOperation>& InOperation):
+        FOperationListRowData(const TSharedPtr<FBatchRenameToolModel>& InModel, const TObjectPtr<UBatchRenamingOperation>& InOperation):
+            Model(InModel),
             Operation(InOperation)
         {
         }
 
         virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
 
+        TSharedPtr<FBatchRenameToolModel> Model;
         TObjectPtr<UBatchRenamingOperation> Operation;
     };
 
