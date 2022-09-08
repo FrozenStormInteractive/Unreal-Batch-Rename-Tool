@@ -52,17 +52,17 @@ FBatchRenameEditorToolkit::FBatchRenameEditorToolkit():
 void FBatchRenameEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
 {
     InTabManager->RegisterTabSpawner(AssetTableTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_AssetTable))
-        .SetDisplayName(LOCTEXT("PropertyTableTab", "Grid"))
+        .SetDisplayName(LOCTEXT("AssetTableTab", "Assets"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
         .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Grid.TabIcon"));
 
-    InTabManager->RegisterTabSpawner(MethodListTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_RuleList))
-        .SetDisplayName(LOCTEXT("PropertiesTab", "Details"))
+    InTabManager->RegisterTabSpawner(MethodListTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationList))
+        .SetDisplayName(LOCTEXT("OperationListTab", "Operations"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
         .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Properties.TabIcon"));
 
     InTabManager->RegisterTabSpawner(OperationDetailsTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationDetails))
-        .SetDisplayName(LOCTEXT("PropertiesTab", "Details"))
+        .SetDisplayName(LOCTEXT("DetailsTab", "Details"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
         .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Properties.TabIcon"));
 }
@@ -202,7 +202,7 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_AssetTable(const FSpawn
     check(Args.GetTabId() == AssetTableTabId);
 
     return SNew(SDockTab)
-        .Label(LOCTEXT("GenericGridTitle", "Grid"))
+        .Label(LOCTEXT("AssetTableTab", "Assets"))
         .TabColorScale(GetTabColorScale())
         .Content()
         [
@@ -215,7 +215,7 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_AssetTable(const FSpawn
         ];
 }
 
-TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_RuleList(const FSpawnTabArgs& Args)
+TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_OperationList(const FSpawnTabArgs& Args)
 {
     check(Args.GetTabId() == MethodListTabId);
 
