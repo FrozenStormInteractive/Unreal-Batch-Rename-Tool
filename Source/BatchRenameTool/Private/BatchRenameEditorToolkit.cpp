@@ -61,12 +61,12 @@ void FBatchRenameEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager
     InTabManager->RegisterTabSpawner(MethodListTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationList))
         .SetDisplayName(LOCTEXT("OperationListTab", "Operations"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
-        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Properties.TabIcon"));
+        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Icons.Details"));
 
     InTabManager->RegisterTabSpawner(OperationDetailsTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationDetails))
-        .SetDisplayName(LOCTEXT("DetailsTab", "Details"))
+        .SetDisplayName(LOCTEXT("OperationDetailsTab", "Operation Details"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
-        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Properties.TabIcon"));
+        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Icons.Details"));
 }
 
 void FBatchRenameEditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -204,7 +204,6 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_AssetTable(const FSpawn
     check(Args.GetTabId() == AssetTableTabId);
 
     return SNew(SDockTab)
-        .Label(LOCTEXT("AssetTableTab", "Assets"))
         .TabColorScale(GetTabColorScale())
         .Content()
         [
@@ -222,7 +221,6 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_OperationList(const FSp
     check(Args.GetTabId() == MethodListTabId);
 
     return SNew(SDockTab)
-        .Label(LOCTEXT("GenericDetailsTitle", "Details"))
         .TabColorScale(GetTabColorScale())
         .Content()
         [
@@ -235,7 +233,6 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_OperationDetails(const 
     check(Args.GetTabId() == OperationDetailsTabId);
 
     return SNew(SDockTab)
-        .Label(LOCTEXT("GenericDetailsTitle", "Details"))
         .TabColorScale(GetTabColorScale())
         .Content()
         [
