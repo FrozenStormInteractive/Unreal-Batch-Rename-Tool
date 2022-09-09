@@ -120,19 +120,15 @@ TSharedRef<SWidget> SBatchRenamingOperationList::MakeOperationsMenuWidget()
     TArray<FFactoryListItem> Factories = FindFactories();
     if (Factories.Num() > 0)
     {
-        MenuBuilder.BeginSection("ContentBrowserGetContent", LOCTEXT("GetContentMenuHeading", "Content"));
+        for (const FFactoryListItem& FactoryItem : Factories)
         {
-            for (const FFactoryListItem& FactoryItem : Factories)
-            {
-                MenuBuilder.AddMenuEntry(
-                    FactoryItem.DisplayName,
-                    FText::GetEmpty(),
-                    FSlateIcon(FEditorStyle::GetStyleSetName(), "ContentBrowser.AddContent"),
-                    FUIAction(FExecuteAction::CreateSP(Model.ToSharedRef(), &FBatchRenameToolModel::AddOperation, FactoryItem.Factory, true))
-                );
-            }
+            MenuBuilder.AddMenuEntry(
+                FactoryItem.DisplayName,
+                FText::GetEmpty(),
+                FSlateIcon(),
+                FUIAction(FExecuteAction::CreateSP(Model.ToSharedRef(), &FBatchRenameToolModel::AddOperation, FactoryItem.Factory, true))
+            );
         }
-        MenuBuilder.EndSection();
     }
 
     FDisplayMetrics DisplayMetrics;
