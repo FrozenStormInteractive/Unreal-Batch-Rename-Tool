@@ -58,17 +58,6 @@ void SBatchRenamingOperationList::Construct(const FArguments& InArgs, const TSha
                 .Icon(FAppStyle::Get().GetBrush("Icons.Plus"))
                 .Text(LOCTEXT("AddAssetButton", "Add"))
             ]
-
-            +SHorizontalBox::Slot()
-            .VAlign(VAlign_Center)
-            .Padding(4.f, 0.f, 0.f, 0.f)
-            [
-                SAssignNew(FilterTextBoxWidget, SSearchBox)
-                .HintText(LOCTEXT("OperationDetailsFilterSearch", "Search..."))
-                .ToolTipText(LOCTEXT("OperationDetailsFilterSearchHint", "Type here to search (pressing enter selects the results)"))
-                // .OnTextChanged(this, &SSceneOutliner::OnFilterTextChanged)
-                // .OnTextCommitted(this, &SSceneOutliner::OnFilterTextCommitted)
-            ]
         ]
 
         +SVerticalBox::Slot()
