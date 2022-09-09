@@ -125,7 +125,7 @@ TSharedRef<SWidget> SBatchRenamingOperationList::MakeOperationsMenuWidget()
             MenuBuilder.AddMenuEntry(
                 FactoryItem.DisplayName,
                 FText::GetEmpty(),
-                FSlateIcon(),
+                FactoryItem.Factory->GetIcon(),
                 FUIAction(FExecuteAction::CreateSP(Model.ToSharedRef(), &FBatchRenameToolModel::AddOperation, FactoryItem.Factory, true))
             );
         }

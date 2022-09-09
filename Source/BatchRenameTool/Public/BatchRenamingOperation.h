@@ -51,6 +51,11 @@ public:
         return FText::GetEmpty();
     }
 
+    virtual FSlateIcon GetIcon() const
+    {
+        return FSlateIcon();
+    }
+
     virtual TObjectPtr<UBatchRenamingOperation> Create()
     {
         return nullptr;
