@@ -97,6 +97,11 @@ struct FFactoryListItem : public FGCObject
     {
         Collector.AddReferencedObject(Factory);
     }
+
+    virtual FString GetReferencerName() const override
+    {
+        return TEXT("FFactoryListItem");
+    }
 };
 
 TArray<FFactoryListItem> FindFactories()

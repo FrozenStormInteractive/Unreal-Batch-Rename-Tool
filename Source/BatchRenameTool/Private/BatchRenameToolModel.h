@@ -34,6 +34,10 @@ class FBatchRenameToolModel : public FGCObject
 {
 public:
     virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
+    virtual FString GetReferencerName() const override
+    {
+        return TEXT("FBatchRenameToolModel");
+    }
 
     DECLARE_MULTICAST_DELEGATE(FOnOperationListModifiedDelegate);
     FOnOperationListModifiedDelegate& OnOperationListModified()

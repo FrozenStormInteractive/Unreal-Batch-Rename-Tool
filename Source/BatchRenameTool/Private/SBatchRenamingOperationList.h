@@ -43,6 +43,10 @@ public:
         }
 
         virtual void AddReferencedObjects(FReferenceCollector& Collector) override;
+        virtual FString GetReferencerName() const override
+        {
+            return TEXT("SBatchRenamingOperationList::FOperationListRowData");
+        }
 
         TSharedPtr<FBatchRenameToolModel> Model;
         TObjectPtr<UBatchRenamingOperation> Operation;
