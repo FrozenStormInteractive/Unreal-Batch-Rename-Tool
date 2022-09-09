@@ -1,6 +1,6 @@
 # Unreal Batch Rename Tool
 
-Unreal Engine plug-in that adds a way to rename multiple assets.
+A plugin to rename multiple assets quickly with a set of naming rules.
 
 ![Screenshot](Docs/screenshot.png)
 
@@ -8,11 +8,10 @@ Unreal Engine plug-in that adds a way to rename multiple assets.
 
 This plug-in was last built against **Unreal Engine 5.0**. It works on all platforms.
 
-
 ## Dependencies
 
 This plug-in requires Visual Studio and either a C++ code project or a the full
-Unreal Engine source code from GitHub. 
+Unreal Engine source code from GitHub.
 
 ## Usage
 

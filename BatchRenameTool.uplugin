@@ -3,7 +3,7 @@
     "Version": 1,
     "VersionName": "1.0.0",
     "FriendlyName": "BatchRenameTool",
-    "Description": "Unreal Engine 4 plug-in that adds a way to rename multiple assets.",
+    "Description": "A plugin to rename multiple assets quickly with a set of naming rules",
     "Category": "Editor",
     "CreatedBy": "Frozen Storm Interactive",
     "CreatedByURL": "https://www.frozenstorminteractive.com",
