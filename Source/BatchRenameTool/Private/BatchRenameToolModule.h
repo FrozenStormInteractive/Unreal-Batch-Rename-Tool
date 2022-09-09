@@ -40,7 +40,14 @@ public:
     virtual void StartupModule() override;
     virtual void ShutdownModule() override;
 
+    virtual TSharedPtr<class FExtensibilityManager> GetBatchRenameEditorToolBarExtensibilityManager()
+    {
+        return BatchRenameEditor_ToolBarExtensibilityManager;
+    }
+
 private:
+    TSharedPtr<FExtensibilityManager> BatchRenameEditor_ToolBarExtensibilityManager;
+
     FDelegateHandle ContentBrowserAssetExtenderDelegateHandle;
     TSharedRef<FExtender> OnExtendContentBrowserAssetContextMenu(const TArray<FAssetData>& Assets);
     void AddContentBrowserMenuExtension(FMenuBuilder& MenuBuilder);

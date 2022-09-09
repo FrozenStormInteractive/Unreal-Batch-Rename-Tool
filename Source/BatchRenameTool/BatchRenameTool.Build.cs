@@ -49,6 +49,7 @@ public class BatchRenameTool : ModuleRules
             "Json",
             "JsonUtilities",
             "ToolWidgets",
+            "ToolMenus",
         });
     }
 }

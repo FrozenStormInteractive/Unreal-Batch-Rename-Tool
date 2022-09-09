@@ -40,19 +40,13 @@ public:
     FBatchRenameEditorToolkit();
 
     virtual void RegisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
-
     virtual void UnregisterTabSpawners(const TSharedRef<class FTabManager>& TabManager) override;
 
     virtual FName GetToolkitFName() const override;
-
     virtual FText GetBaseToolkitName() const override;
-
     virtual FText GetToolkitName() const override;
-
     virtual FText GetToolkitToolTipText() const override;
-
     FLinearColor GetWorldCentricTabColorScale() const override;
-
     FString GetWorldCentricTabPrefix() const override;
 
     virtual bool IsPrimaryEditor() const override { return false; };
@@ -61,13 +55,15 @@ public:
     static TSharedRef<FBatchRenameEditorToolkit> CreateEditor(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, const TArray<TObjectPtr<UObject>>& ObjectsToEdit);
 
 private:
-    FReply Run();
+    static TSharedPtr<FBatchRenameEditorToolkit> FindExistingEditor(TObjectPtr<UObject> Object);
+    void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, const TArray<TObjectPtr<UObject>>& ObjectsToEdit);
+
+    void ExtendToolbar();
+    void RegisterToolBar();
+
+    void Run();
     FString ApplyOperations(const FString& Str) const;
     void OnOperationsChanged();
-
-    static TSharedPtr<FBatchRenameEditorToolkit> FindExistingEditor(TObjectPtr<UObject> Object);
-
-    void Initialize(const EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, const TArray<TObjectPtr<UObject>>& ObjectsToEdit);
 
     TSharedRef<SDockTab> SpawnTab_AssetTable(const FSpawnTabArgs& Args);
     TSharedRef<SDockTab> SpawnTab_OperationList(const FSpawnTabArgs& Args);

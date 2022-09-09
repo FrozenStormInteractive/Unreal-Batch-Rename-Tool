@@ -34,6 +34,8 @@
 
 void FBatchRenameToolModule::StartupModule()
 {
+    BatchRenameEditor_ToolBarExtensibilityManager = MakeShared<FExtensibilityManager>();
+
     FBatchRenameToolStyle::Initialize();
     FBatchRenameToolStyle::ReloadTextures();
 
@@ -67,6 +69,8 @@ void FBatchRenameToolModule::ShutdownModule()
     FBatchRenameToolStyle::Shutdown();
 
     FBatchRenameToolCommands::Unregister();
+
+    BatchRenameEditor_ToolBarExtensibilityManager.Reset();
 }
 
 void FBatchRenameToolModule::OpenBulkRenameWindow()

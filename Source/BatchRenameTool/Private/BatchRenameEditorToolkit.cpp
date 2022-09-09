@@ -31,7 +31,9 @@
 #include "SBatchRenamingOperationList.h"
 #include "IAssetTools.h"
 #include "BatchRenameToolModel.h"
+#include "BatchRenameToolModule.h"
 #include "SAssetTable.h"
+#include "ToolMenus.h"
 #include "Subsystems/AssetEditorSubsystem.h"
 
 #define LOCTEXT_NAMESPACE "BatchRenameTool"
@@ -224,59 +226,7 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_OperationList(const FSp
         .TabColorScale(GetTabColorScale())
         .Content()
         [
-            SNew(SVerticalBox)
-            + SVerticalBox::Slot()
-            .VAlign(VAlign_Fill)
-            [
-                SAssignNew(OperationList, SBatchRenamingOperationList, Model)
-                // SAssignNew(RuleList, SRuleList)
-                // .OnModified(this, &FBatchRenameEditorToolkit::OnOperationsChanged)
-            ]
-            + SVerticalBox::Slot()
-            .AutoHeight()
-            .VAlign(VAlign_Bottom)
-            [
-                SNew(SBorder)
-                .Padding(FMargin(3))
-                .BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
-                [
-                    SNew(SHorizontalBox)
-                    + SHorizontalBox::Slot()
-                    .VAlign(VAlign_Center)
-                    .HAlign(HAlign_Right)
-                    [
-                        SNew(SButton)
-                        .ButtonStyle(FEditorStyle::Get(), "FlatButton")
-                        .ContentPadding(FMargin(6, 2))
-                        .OnClicked(this, &FBatchRenameEditorToolkit::Run)
-                        [
-                            SNew(SHorizontalBox)
-
-                            // Icon
-                            + SHorizontalBox::Slot()
-                            .VAlign(VAlign_Center)
-                            .AutoWidth()
-                            [
-                                SNew(STextBlock)
-                                .TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-                                .Font(FEditorStyle::Get().GetFontStyle("FontAwesome.11"))
-                                .Text(FEditorFontGlyphs::Play)
-                            ]
-
-                            // Text
-                            + SHorizontalBox::Slot()
-                            .AutoWidth()
-                            .VAlign(VAlign_Center)
-                            .Padding(4, 0, 0, 0)
-                            [
-                                SNew(STextBlock)
-                                .TextStyle(FEditorStyle::Get(), "ContentBrowser.TopBar.Font")
-                                .Text(LOCTEXT("Execute", "Execute"))
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+            SAssignNew(OperationList, SBatchRenamingOperationList, Model)
         ];
 }
 
@@ -337,9 +287,46 @@ void FBatchRenameEditorToolkit::Initialize(const EToolkitMode::Type Mode, const 
         AssetTableRows.Add(RowData);
     }
 
+
     constexpr bool bCreateDefaultStandaloneMenu = true;
-    constexpr bool bCreateDefaultToolbar = false;
+    constexpr bool bCreateDefaultToolbar = true;
     FAssetEditorToolkit::InitAssetEditor(Mode, InitToolkitHost, ApplicationId, StandaloneDefaultLayout, bCreateDefaultStandaloneMenu, bCreateDefaultToolbar, ObjectsToEdit);
+
+    ExtendToolbar();
+    RegisterToolBar();
+}
+
+void FBatchRenameEditorToolkit::ExtendToolbar()
+{
+    FBatchRenameToolModule* BatchRenameToolModule = &FModuleManager::LoadModuleChecked<FBatchRenameToolModule>("BatchRenameTool");
+    AddToolbarExtender(BatchRenameToolModule->GetBatchRenameEditorToolBarExtensibilityManager()->GetAllExtenders());
+}
+
+void FBatchRenameEditorToolkit::RegisterToolBar()
+{
+    UToolMenus* ToolMenus = UToolMenus::Get();
+    FName ParentName;
+    const FName MenuName = GetToolMenuToolbarName(ParentName);
+    UToolMenu* ToolBarBuilder;
+    if (ToolMenus->IsMenuRegistered(MenuName))
+    {
+        ToolBarBuilder = ToolMenus->ExtendMenu(MenuName);
+    }
+    else
+    {
+        ToolBarBuilder = ToolMenus->RegisterMenu(MenuName, ParentName, EMultiBoxType::ToolBar);
+    }
+
+    {
+        FToolMenuSection& Section = ToolBarBuilder->AddSection("BatchRename");
+        FToolMenuEntry RunToolbarButton = FToolMenuEntry::InitToolBarButton(
+            "ExecuteAction",
+            FUIAction(FExecuteAction::CreateSP(this, &FBatchRenameEditorToolkit::Run)),
+            LOCTEXT("Execute", "Execute"),
+            TAttribute<FText>(),
+            FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Play"));
+        Section.AddEntry(RunToolbarButton);
+    }
 }
 
 TSharedPtr<FBatchRenameEditorToolkit> FBatchRenameEditorToolkit::FindExistingEditor(TObjectPtr<UObject> Object)
@@ -397,7 +384,7 @@ TSharedRef<FBatchRenameEditorToolkit> FBatchRenameEditorToolkit::CreateEditor(co
     return NewEditor;
 }
 
-FReply FBatchRenameEditorToolkit::Run()
+void FBatchRenameEditorToolkit::Run()
 {
     if(!Model->GetOperations().IsEmpty())
     {
@@ -415,8 +402,6 @@ FReply FBatchRenameEditorToolkit::Run()
             CloseWindow();
         }
     }
-
-    return FReply::Handled();
 }
 
 FString FBatchRenameEditorToolkit::ApplyOperations(const FString& Str) const
