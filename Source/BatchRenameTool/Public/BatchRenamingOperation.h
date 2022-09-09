@@ -46,7 +46,7 @@ class UBatchRenamingOperationFactory : public UObject
 {
     GENERATED_BODY()
 public:
-    virtual FText GetDisplayName()
+    virtual FText GetDisplayName() const
     {
         return FText::GetEmpty();
     }

@@ -51,7 +51,7 @@ class UBatchRenamingOperationFactory_Add : public UBatchRenamingOperationFactory
 {
     GENERATED_BODY()
 public:
-    inline FText GetDisplayName() override
+    inline FText GetDisplayName() const override
     {
         return FText::FromString("Add");
     }

@@ -51,7 +51,7 @@ class UBatchRenamingOperationFactory_Replace : public UBatchRenamingOperationFac
 {
     GENERATED_BODY()
 public:
-    inline FText GetDisplayName() override
+    inline FText GetDisplayName() const override
     {
         return FText::FromString("Replace");
     }
