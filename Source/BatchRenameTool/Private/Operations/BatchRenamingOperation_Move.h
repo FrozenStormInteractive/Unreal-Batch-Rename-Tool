@@ -33,16 +33,16 @@ class UBatchRenamingOperation_Move : public UBatchRenamingOperation
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Move")
     uint32 From;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Move")
     uint32 Count = 0;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Move")
     uint32 To = 0;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Move")
     bool Backward = false;
 
     virtual FText GetDisplayName_Implementation() const override;

@@ -33,13 +33,13 @@ class UBatchRenamingOperation_Replace : public UBatchRenamingOperation
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Replace")
     FString TextToBeReplaced;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Replace")
     FString ReplaceWith;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Replace")
     bool CaseSensitive = false;
 
     virtual FText GetDisplayName_Implementation() const override;

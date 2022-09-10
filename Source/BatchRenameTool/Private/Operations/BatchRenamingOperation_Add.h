@@ -33,13 +33,13 @@ class UBatchRenamingOperation_Add : public UBatchRenamingOperation
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Add")
     FString Str;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Add")
     uint32 Index = 0;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Add")
     bool Backward = false;
 
     virtual FText GetDisplayName_Implementation() const override;

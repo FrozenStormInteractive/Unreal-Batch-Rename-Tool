@@ -33,13 +33,13 @@ class UBatchRenamingOperation_Remove : public UBatchRenamingOperation
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Remove")
     uint32 Count = 0;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Remove")
     uint32 At = 0;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Remove")
     bool Backward = false;
 
     virtual FText GetDisplayName_Implementation() const override;
