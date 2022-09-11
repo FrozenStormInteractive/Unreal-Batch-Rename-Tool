@@ -1,0 +1,19 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epicgames/unreal-engine:dev-5.0
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -plugin="${PWD}/BatchRenameTool.uplugin" -package="${PWD}/Builds"
