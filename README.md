@@ -2,7 +2,7 @@
 
 A plugin to rename multiple assets quickly with a set of naming rules.
 
-![Screenshot](Docs/screenshot.png)
+![Screenshot](Docs/static/img/screenshot.png)
 
 ## Supported Platforms
 
