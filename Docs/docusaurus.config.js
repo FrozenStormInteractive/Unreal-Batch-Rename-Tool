@@ -9,7 +9,7 @@ const config = {
   title: 'Unreal Batch Rename Tool',
   tagline: 'Dinosaurs are cool',
   url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  baseUrl: '/Unreal-Batch-Rename-Tool/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
