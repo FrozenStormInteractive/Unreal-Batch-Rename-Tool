@@ -13,7 +13,7 @@ jobs:
       image: ghcr.io/epicgames/unreal-engine:dev-5.0
       credentials:
         username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
+        password: ${{ secrets.PAT }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
