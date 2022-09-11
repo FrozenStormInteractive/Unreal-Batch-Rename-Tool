@@ -10,13 +10,15 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/epicgames/unreal-engine:dev-5.0
+      image: ghcr.io/epicgames/unreal-engine:dev-slim-5.0
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.PAT }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          path: BatchRenameTool
 
       - name: Build
-        run: /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -plugin="${PWD}/BatchRenameTool.uplugin" -package="${PWD}/Builds"
+        run: /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildPlugin -Rocket -TargetPlatforms=Linux -Plugin="${PWD}/BatchRenameTool/BatchRenameTool.uplugin" -Package="${PWD}/Builds/BatchRenameTool"
