@@ -16,9 +16,20 @@ function HomepageHeader() {
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
+            disabled
+            className="button button--warning button--lg"
+            to="https://github.com/FrozenStormInteractive/Unreal-Batch-Rename-Tool">
+            Marketplace Edition
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            to="https://github.com/FrozenStormInteractive/Unreal-Batch-Rename-Tool">
+            Source Edition
+          </Link>
+          <Link
             className="button button--secondary button--lg"
             to="/docs/installation">
-            Docusaurus Tutorial - 5min ⏱️
+            Getting Started
           </Link>
         </div>
       </div>

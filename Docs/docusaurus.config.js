@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Unreal Batch Rename Tool',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'A tool to rename multiple assets quickly ',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/Unreal-Batch-Rename-Tool/',
   onBrokenLinks: 'throw',
