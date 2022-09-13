@@ -93,9 +93,9 @@ struct FFactoryListItem : public FGCObject
     }
 };
 
-TArray<FFactoryListItem> FindFactories()
+TArray<TSharedPtr<FFactoryListItem>> FindFactories()
 {
-    TArray<FFactoryListItem> Factories;
+    TArray<TSharedPtr<FFactoryListItem>> Factories;
     for (TObjectIterator<UClass> It; It; ++It)
     {
         const UClass* Class = *It;
@@ -105,7 +105,7 @@ TArray<FFactoryListItem> FindFactories()
             UBatchRenamingOperationFactory* Factory = Class->GetDefaultObject<UBatchRenamingOperationFactory>();
             if (ensure(!Factory->GetDisplayName().IsEmpty()))
             {
-                Factories.Add(FFactoryListItem(Factory, Factory->GetDisplayName()));
+                Factories.Add(MakeShared<FFactoryListItem>(Factory, Factory->GetDisplayName()));
             }
         }
     }
@@ -117,16 +117,16 @@ TSharedRef<SWidget> SBatchRenamingOperationList::MakeOperationsMenuWidget()
 {
     FMenuBuilder MenuBuilder(/*bInShouldCloseWindowAfterMenuSelection=*/true, nullptr);
 
-    TArray<FFactoryListItem> Factories = FindFactories();
+    TArray<TSharedPtr<FFactoryListItem>> Factories = FindFactories();
     if (Factories.Num() > 0)
     {
-        for (const FFactoryListItem& FactoryItem : Factories)
+        for (const TSharedPtr<FFactoryListItem>& FactoryItem : Factories)
         {
             MenuBuilder.AddMenuEntry(
-                FactoryItem.DisplayName,
+                FactoryItem->DisplayName,
                 FText::GetEmpty(),
-                FactoryItem.Factory->GetIcon(),
-                FUIAction(FExecuteAction::CreateSP(Model.ToSharedRef(), &FBatchRenameToolModel::AddOperation, FactoryItem.Factory, true))
+                FactoryItem->Factory->GetIcon(),
+                FUIAction(FExecuteAction::CreateSP(Model.ToSharedRef(), &FBatchRenameToolModel::AddOperation, FactoryItem->Factory, true))
             );
         }
     }
