@@ -30,7 +30,7 @@
 class UBatchRenamingOperation;
 
 UCLASS(Abstract, Blueprintable)
-class UBatchRenamingOperation: public UObject
+class BATCHRENAMETOOL_API UBatchRenamingOperation: public UObject
 {
     GENERATED_BODY()
 public:
@@ -42,7 +42,7 @@ public:
 };
 
 UCLASS(Abstract, Blueprintable)
-class UBatchRenamingOperationFactory : public UObject
+class BATCHRENAMETOOL_API UBatchRenamingOperationFactory : public UObject
 {
     GENERATED_BODY()
 public:
