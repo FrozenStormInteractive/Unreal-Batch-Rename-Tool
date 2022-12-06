@@ -56,17 +56,17 @@ void FBatchRenameEditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager
     InTabManager->RegisterTabSpawner(AssetTableTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_AssetTable))
         .SetDisplayName(LOCTEXT("AssetTableTab", "Assets"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
-        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "PropertyEditor.Grid.TabIcon"));
+        .SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "PropertyEditor.Grid.TabIcon"));
 
     InTabManager->RegisterTabSpawner(MethodListTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationList))
         .SetDisplayName(LOCTEXT("OperationListTab", "Operations"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
-        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Icons.Details"));
+        .SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Details"));
 
     InTabManager->RegisterTabSpawner(OperationDetailsTabId, FOnSpawnTab::CreateSP(this, &FBatchRenameEditorToolkit::SpawnTab_OperationDetails))
         .SetDisplayName(LOCTEXT("OperationDetailsTab", "Operation Details"))
         .SetGroup(WorkspaceMenuCategory.ToSharedRef())
-        .SetIcon(FSlateIcon(FEditorStyle::GetStyleSetName(), "Icons.Details"));
+        .SetIcon(FSlateIcon(FAppStyle::GetAppStyleSetName(), "Icons.Details"));
 }
 
 void FBatchRenameEditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -209,7 +209,7 @@ TSharedRef<SDockTab> FBatchRenameEditorToolkit::SpawnTab_AssetTable(const FSpawn
         [
             SNew(SBorder)
             .Padding(FMargin(3))
-            .BorderImage(FEditorStyle::GetBrush("ToolPanel.GroupBorder"))
+            .BorderImage(FAppStyle::GetBrush("ToolPanel.GroupBorder"))
             [
                 SAssignNew(AssetTable, SAssetTable, AssetTableRows)
             ]

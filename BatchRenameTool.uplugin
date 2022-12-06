@@ -17,7 +17,12 @@
         {
             "Name": "BatchRenameTool",
             "Type": "Editor",
-            "LoadingPhase": "Default"
+            "LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Linux",
+				"Mac"
+			]
         }
     ]
 }

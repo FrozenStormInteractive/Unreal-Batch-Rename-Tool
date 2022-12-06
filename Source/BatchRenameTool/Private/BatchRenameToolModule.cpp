@@ -105,7 +105,7 @@ void FBatchRenameToolModule::AddContentBrowserMenuExtension(FMenuBuilder& MenuBu
 {
     if (SelectedAssets.Num() > 1)
     {
-        MenuBuilder.AddMenuEntry(FBatchRenameToolCommands::Get().BatchRename, NAME_None, LOCTEXT("BatchRename", "Batch Rename"), LOCTEXT("BatchRename_Tooltip", "Rename the selected assets."), FSlateIcon(FEditorStyle::GetStyleSetName(), "GenericCommands.Rename"));
+        MenuBuilder.AddMenuEntry(FBatchRenameToolCommands::Get().BatchRename, NAME_None, LOCTEXT("BatchRename", "Batch Rename"), LOCTEXT("BatchRename_Tooltip", "Rename the selected assets."), FSlateIcon(FAppStyle::GetAppStyleSetName(), "GenericCommands.Rename"));
     }
 }
 
