@@ -396,7 +396,7 @@ void FBatchRenameEditorToolkit::Run()
 
         if(AssetToolsModule.Get().RenameAssets(AssetRenameData))
         {
-            CloseWindow();
+            CloseWindow(EAssetEditorCloseReason::AssetEditorHostClosed);
         }
     }
 }
