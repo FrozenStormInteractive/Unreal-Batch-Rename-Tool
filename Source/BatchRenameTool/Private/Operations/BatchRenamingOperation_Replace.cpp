@@ -23,6 +23,7 @@
  */
 
 #include "BatchRenamingOperation_Replace.h"
+#include "Internationalization/TextChar.h"
 
 #define LOCTEXT_NAMESPACE "BatchRenameTool"
 
@@ -35,7 +36,7 @@ bool IsEmptyOrWhitespace(const FString& Str)
 
     for(const TCHAR& Character : Str)
     {
-        if (!FText::IsWhitespace(Character))
+        if (!FTextChar::IsWhitespace(Character))
         {
             return false;
         }
