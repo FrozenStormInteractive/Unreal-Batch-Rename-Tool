@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Unreal Batch Rename Tool',
   tagline: 'A tool to rename multiple assets quickly ',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://frozenstorminteractive.github.io',
   baseUrl: '/Unreal-Batch-Rename-Tool/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
